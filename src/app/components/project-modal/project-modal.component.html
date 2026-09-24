@@ -1,0 +1,135 @@
+@if (project) {
+  <div class="modal-backdrop" (click)="close.emit()">
+    <div class="modal-dialog glass-card" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="header-left">
+          <span class="category-chip">{{ project.category | uppercase }}</span>
+          <h3 class="modal-title">{{ project.title }}</h3>
+        </div>
+        <button
+          type="button"
+          class="btn-icon close-btn"
+          (click)="close.emit()"
+          aria-label="Close modal"
+        >
+          <app-icon name="x" [size]="20"></app-icon>
+        </button>
+      </div>
+
+      <!-- Modal Scroll Body -->
+      <div class="modal-body">
+        <!-- Tagline -->
+        <p class="modal-tagline">{{ project.tagline }}</p>
+
+        <!-- Metrics Highlight Row -->
+        @if (project.metrics && project.metrics.length) {
+          <div class="metrics-row">
+            @for (m of project.metrics; track m) {
+              <div class="metric-pill">
+                <app-icon name="zap" [size]="14"></app-icon>
+                <span>{{ m }}</span>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Long Description -->
+        <div class="modal-section">
+          <h4 class="section-heading">Overview &amp; Problem Statement</h4>
+          <p class="section-desc">{{ project.longDescription }}</p>
+        </div>
+
+        <!-- Architecture Highlights -->
+        @if (project.architectureHighlights && project.architectureHighlights.length) {
+          <div class="modal-section">
+            <h4 class="section-heading">Architectural &amp; Developer Decisions</h4>
+            <ul class="arch-list">
+              @for (arch of project.architectureHighlights; track arch) {
+                <li class="arch-item">
+                  <app-icon name="check-circle" [size]="15" customClass="arch-icon"></app-icon>
+                  <span>{{ arch }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        <!-- Tech Details Breakdown Table -->
+        <div class="modal-section">
+          <h4 class="section-heading">Technical Stack Breakdown</h4>
+          <div class="tech-spec-grid">
+            @if (project.techDetails.frontend) {
+              <div class="spec-cell">
+                <span class="spec-label"
+                  ><app-icon name="layout" [size]="14"></app-icon> Frontend:</span
+                >
+                <span class="spec-value">{{ project.techDetails.frontend }}</span>
+              </div>
+            }
+            @if (project.techDetails.backend) {
+              <div class="spec-cell">
+                <span class="spec-label"
+                  ><app-icon name="server" [size]="14"></app-icon> Backend:</span
+                >
+                <span class="spec-value">{{ project.techDetails.backend }}</span>
+              </div>
+            }
+            @if (project.techDetails.database) {
+              <div class="spec-cell">
+                <span class="spec-label"
+                  ><app-icon name="database" [size]="14"></app-icon> Database:</span
+                >
+                <span class="spec-value">{{ project.techDetails.database }}</span>
+              </div>
+            }
+            @if (project.techDetails.deployment) {
+              <div class="spec-cell">
+                <span class="spec-label"
+                  ><app-icon name="cloud" [size]="14"></app-icon> Cloud &amp; Infra:</span
+                >
+                <span class="spec-value">{{ project.techDetails.deployment }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Tags List -->
+        <div class="modal-tags">
+          @for (tag of project.tags; track tag) {
+            <span class="tech-chip">{{ tag }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Modal Footer CTA -->
+      <div class="modal-footer">
+        <div class="action-links">
+          @if (project.demoUrl) {
+            <a
+              [href]="project.demoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              <app-icon name="external-link" [size]="16"></app-icon>
+              <span>Launch Live Demo</span>
+            </a>
+          }
+          @if (project.githubUrl) {
+            <a
+              [href]="project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary"
+            >
+              <app-icon name="github" [size]="16"></app-icon>
+              <span>Inspect Source Code</span>
+            </a>
+          }
+        </div>
+        <button type="button" class="btn btn-outline" (click)="close.emit()">Close</button>
+      </div>
+    </div>
+  </div>
+}

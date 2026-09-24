@@ -1,0 +1,135 @@
+<section id="about" class="about-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>01 // ABOUT ME</span>
+      </div>
+      <h2 class="section-title">Clean Code, <span class="gradient-text">Modern Web Apps</span></h2>
+      <p class="section-subtitle">Building full-stack web apps with Angular and ASP.NET Core.</p>
+    </div>
+
+    <div class="about-grid">
+      <!-- Left Column: Biography & Core Principles -->
+      <div class="about-narrative reveal-on-scroll reveal-stagger-1">
+        <div class="bio-paragraphs">
+          @for (paragraph of profile().aboutLong; track $index) {
+            <p class="bio-text">{{ paragraph }}</p>
+          }
+        </div>
+
+        <!-- Developer Pillars -->
+        <div class="dev-pillars">
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon">
+              <app-icon name="cpu" [size]="20"></app-icon>
+            </div>
+            <div class="pillar-info">
+              <h4 class="pillar-title">Clean Architecture</h4>
+              <p class="pillar-desc">
+                Clean Architecture, SOLID principles, and reusable components.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillar-card glass-card">
+            <div class="pillar-icon">
+              <app-icon name="shield-check" [size]="20"></app-icon>
+            </div>
+            <div class="pillar-info">
+              <h4 class="pillar-title">DevOps Basics</h4>
+              <p class="pillar-desc">Docker basics and CI/CD with GitHub Actions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-actions">
+          <a class="btn btn-primary" (click)="scroll.scrollToSection('contact')">
+            <app-icon name="send" [size]="16"></app-icon>
+            <span>Initiate Collaboration</span>
+          </a>
+
+          <a class="btn btn-secondary" (click)="scroll.scrollToSection('experience')">
+            <app-icon name="briefcase" [size]="16"></app-icon>
+            <span>View Experience &amp; Journey</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Developer Environment & Live Specs -->
+      <div class="about-specs-col reveal-on-scroll reveal-stagger-2">
+        <div class="specs-card glass-card">
+          <div class="specs-header">
+            <div class="specs-title-box">
+              <app-icon name="terminal" [size]="16"></app-icon>
+              <span>developer_specs.json</span>
+            </div>
+            <span class="specs-tag">LIVE ENV</span>
+          </div>
+
+          <div class="specs-body">
+            <div class="spec-row">
+              <span class="spec-key">Developer:</span>
+              <span class="spec-val highlight">{{ profile().fullName }}</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Current Focus:</span>
+              <span class="spec-val">Angular 22, ASP.NET Core Web APIs & Clean Architecture</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Location / Base:</span>
+              <span class="spec-val">{{ profile().location }}</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Languages:</span>
+              <span class="spec-val">C#, TypeScript, JavaScript, SQL, HTML/CSS</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Primary Stack:</span>
+              <span class="spec-val">Angular 22, ASP.NET Core, EF Core, SQL Server / MySQL</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Tooling & IDE:</span>
+              <span class="spec-val">VS Code, Visual Studio, Git CLI, Postman</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-key">Availability:</span>
+              <span class="spec-val status-green">🟢 {{ profile().status }}</span>
+            </div>
+          </div>
+
+          <div class="specs-footer">
+            <div class="code-quote">
+              <span class="quote-symbol">"</span>
+              <span
+                >Writing software is not just about making it work; it's about making it's about
+                making it clean, maintainable, and easy to grow.</span>
+              <span class="quote-symbol">"</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Showcase -->
+        <div class="stats-grid">
+          @for (stat of stats(); track stat.label) {
+            <div class="stat-card glass-card">
+              <div class="stat-header">
+                <span class="stat-value gradient-text">{{ stat.value }}</span>
+                <app-icon [name]="stat.icon" [size]="18" customClass="stat-icon"></app-icon>
+              </div>
+              <div class="stat-label">{{ stat.label }}</div>
+              <div class="stat-sublabel">{{ stat.sublabel }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

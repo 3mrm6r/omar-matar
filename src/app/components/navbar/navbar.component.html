@@ -1,0 +1,129 @@
+<!-- Top Scroll Progress Bar -->
+<div class="scroll-progress-container">
+  <div class="scroll-progress-bar" [style.width.%]="scroll.scrollProgress()"></div>
+</div>
+
+<header class="navbar-wrapper" [class.scrolled]="scroll.isScrolled()">
+  <div class="container navbar-container">
+    <!-- Logo -->
+    <a class="nav-brand" (click)="scrollTo('hero')" role="button" tabindex="0">
+      <span class="brand-bracket">&lt;</span>
+      <span class="brand-name">Omar-Matar</span>
+      <span class="brand-dot">.dev</span>
+      <span class="brand-bracket"> /&gt;</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        @for (item of navItems; track item.id) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="scroll.activeSection() === item.id"
+              (click)="scrollTo(item.id)"
+            >
+              <span class="nav-index">0{{ $index + 1 }}.</span>
+              <span class="nav-label">{{ item.label }}</span>
+              @if (scroll.activeSection() === item.id) {
+                <span class="active-indicator"></span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="nav-actions">
+      <!-- Accent Color Switcher -->
+      <div class="accent-picker" title="Switch Theme Accent">
+        <button
+          type="button"
+          class="accent-btn"
+          [class.active]="accentDropdownOpen()"
+          (click)="toggleAccentDropdown()"
+        >
+          <span class="accent-preview-dot" [attr.data-accent]="theme.currentAccent()"></span>
+          <app-icon name="sparkles" [size]="15"></app-icon>
+        </button>
+
+        @if (accentDropdownOpen()) {
+          <div class="accent-menu glass-card">
+            <div class="accent-menu-title">Theme Accent</div>
+            <div class="accent-options">
+              @for (acc of accentColors; track acc.key) {
+                <button
+                  type="button"
+                  class="accent-option-btn"
+                  [class.selected]="theme.currentAccent() === acc.key"
+                  (click)="selectAccent(acc.key)"
+                >
+                  <span class="color-swatch" [style.background]="acc.color"></span>
+                  <span class="swatch-label">{{ acc.label }}</span>
+                  @if (theme.currentAccent() === acc.key) {
+                    <app-icon name="check" [size]="14"></app-icon>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Direct Resume CTA -->
+      <a class="btn btn-outline nav-cta" (click)="scrollTo('contact')">
+        <app-icon name="terminal" [size]="16"></app-icon>
+        <span>Let's Talk</span>
+      </a>
+
+      <!-- Mobile Hamburger -->
+      <button
+        type="button"
+        class="mobile-toggle btn-icon"
+        (click)="toggleMobileMenu()"
+        [attr.aria-label]="mobileMenuOpen() ? 'Close Menu' : 'Open Menu'"
+      >
+        <app-icon [name]="mobileMenuOpen() ? 'x' : 'menu'" [size]="22"></app-icon>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Drawer Overlay -->
+@if (mobileMenuOpen()) {
+  <div class="mobile-drawer-overlay" (click)="closeMobileMenu()">
+    <div class="mobile-drawer glass-card" (click)="$event.stopPropagation()">
+      <div class="mobile-drawer-header">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>Available for Hire</span>
+        </div>
+        <button type="button" class="btn-icon" (click)="closeMobileMenu()">
+          <app-icon name="x" [size]="20"></app-icon>
+        </button>
+      </div>
+
+      <nav class="mobile-nav-list">
+        @for (item of navItems; track item.id) {
+          <a
+            class="mobile-nav-link"
+            [class.active]="scroll.activeSection() === item.id"
+            (click)="scrollTo(item.id)"
+          >
+            <span class="nav-index">0{{ $index + 1 }}.</span>
+            <span class="nav-label">{{ item.label }}</span>
+            <app-icon name="arrow-right" [size]="16" customClass="nav-arrow"></app-icon>
+          </a>
+        }
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <a class="btn btn-primary w-full" (click)="scrollTo('contact')">
+          <app-icon name="send" [size]="16"></app-icon>
+          <span>Get In Touch</span>
+        </a>
+      </div>
+    </div>
+  </div>
+}

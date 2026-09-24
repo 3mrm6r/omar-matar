@@ -1,0 +1,105 @@
+<section id="skills" class="skills-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>02 // SKILLS &amp; ARCHITECTURE</span>
+      </div>
+      <h2 class="section-title">
+        Skills &amp; <span class="gradient-text">Technologies</span>
+      </h2>
+      <p class="section-subtitle">
+        A catalog of languages, frameworks, databases, and development tools
+        I leverage to build clean, maintainable software.
+      </p>
+    </div>
+
+    <!-- Filter Category Tabs -->
+    <div class="skills-tabs-wrapper reveal-on-scroll reveal-stagger-1">
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="selectedCategory() === 'all'"
+        (click)="setCategory('all')"
+      >
+        <app-icon name="sparkles" [size]="15"></app-icon>
+        <span>All Domains</span>
+      </button>
+
+      @for (cat of categories(); track cat.key) {
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="selectedCategory() === cat.key"
+          (click)="setCategory(cat.key)"
+        >
+          <app-icon [name]="cat.icon" [size]="15"></app-icon>
+          <span>{{ cat.name }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Category Description If Specific Tab Selected -->
+    @if (activeCategoryMeta()) {
+      <div class="category-meta-banner reveal-on-scroll">
+        <div class="meta-icon-box">
+          <app-icon [name]="activeCategoryMeta()!.icon" [size]="20"></app-icon>
+        </div>
+        <p class="meta-desc">{{ activeCategoryMeta()!.description }}</p>
+      </div>
+    }
+
+    <!-- Skills Grid -->
+    <div class="skills-grid reveal-on-scroll reveal-stagger-2">
+      @for (skill of displayedSkills(); track skill.name) {
+        <div class="skill-card glass-card">
+          <div class="skill-card-top">
+            <div class="skill-header-left">
+              <div class="skill-icon-wrap">
+                <app-icon [name]="getSkillIcon(skill.icon)" [size]="18"></app-icon>
+              </div>
+              <div class="skill-info">
+                <h4 class="skill-name">{{ skill.name }}</h4>
+              </div>
+            </div>
+
+            @if (skill.badge) {
+              <span class="skill-badge">{{ skill.badge }}</span>
+            }
+          </div>
+
+          <!-- Discrete Skill Level Indicator -->
+          <div class="skill-level-wrapper">
+            <div class="level-meta">
+              <span class="level-label">Level</span>
+              <span class="skill-level-pill" [attr.data-level]="skill.level.toLowerCase()">
+                {{ skill.level }}
+              </span>
+            </div>
+            <div class="level-bars">
+              <span class="bar-step" [class.filled]="getLevelScore(skill.level) >= 1"></span>
+              <span class="bar-step" [class.filled]="getLevelScore(skill.level) >= 2"></span>
+              <span class="bar-step" [class.filled]="getLevelScore(skill.level) >= 3"></span>
+              <span class="bar-step" [class.filled]="getLevelScore(skill.level) >= 4"></span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Terminal Tech Summary -->
+    <div class="skills-footer-terminal glass-card reveal-on-scroll reveal-stagger-3">
+      <div class="terminal-bar">
+        <span class="terminal-dot"></span>
+        <span class="terminal-file">dev_environment_check.log</span>
+      </div>
+      <div class="terminal-content">
+        <span class="cmd-prompt">$ ng version</span>
+        <span class="cmd-info"
+          >Angular CLI: 22.x • Node.js: LTS • TypeScript: 5.x • Strict Type Checking: ENABLED</span
+        >
+      </div>
+    </div>
+  </div>
+</section>

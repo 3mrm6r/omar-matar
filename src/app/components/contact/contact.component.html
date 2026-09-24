@@ -1,0 +1,226 @@
+<section id="contact" class="contact-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>06 // INITIATE TRANSMISSION</span>
+      </div>
+      <h2 class="section-title">
+        Let's Build Something Great <span class="gradient-text">Together</span>
+      </h2>
+      <p class="section-subtitle">
+        Have a system to architect, a frontend to modernize, or a development challenge to solve?
+        Send a message or connect through direct channels.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Left Column: Direct Channels & Dev Info -->
+      <div class="contact-info-col reveal-on-scroll reveal-stagger-1">
+        <div class="direct-card glass-card">
+          <h3 class="card-title">Direct Connection</h3>
+          <p class="card-desc">
+            My inbox is always open. Whether you have a project inquiry, a technical question, or just want to talk about web development.
+          </p>
+
+          <!-- Copy Email Box -->
+          <div class="email-copy-box">
+            <div class="email-details">
+              <span class="email-label">PRIMARY INBOX</span>
+              <span class="email-address">{{ profile().email }}</span>
+            </div>
+            <button
+              type="button"
+              class="btn-icon copy-email-btn"
+              (click)="copyEmail()"
+              [title]="emailCopied() ? 'Email copied!' : 'Copy email address'"
+            >
+              <app-icon [name]="emailCopied() ? 'check' : 'copy'" [size]="18"></app-icon>
+              @if (emailCopied()) {
+                <span class="copied-tooltip">Copied!</span>
+              }
+            </button>
+          </div>
+
+          <!-- Location & Status -->
+          <div class="meta-status-list">
+            <div class="meta-row">
+              <app-icon name="map-pin" [size]="16" customClass="meta-icon"></app-icon>
+              <span class="meta-txt">{{ profile().location }}</span>
+            </div>
+
+            <div class="meta-row">
+              <app-icon name="zap" [size]="16" customClass="meta-icon"></app-icon>
+              <span class="meta-txt">Response time: &lt; 24 hours</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="online-indicator-dot"></span>
+              <span class="meta-txt font-semibold text-emerald">Available for Junior roles & internships</span>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-links-row">
+            <a
+              [href]="profile().github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-btn"
+              title="GitHub"
+            >
+              <app-icon name="github" [size]="20"></app-icon>
+            </a>
+
+            <a
+              [href]="profile().linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-btn"
+              title="LinkedIn"
+            >
+              <app-icon name="linkedin" [size]="20"></app-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Terminal Snippet -->
+        <div class="contact-terminal glass-card">
+          <div class="terminal-top">
+            <span class="dot-red"></span>
+            <span class="terminal-name">fast_contact.sh</span>
+          </div>
+          <div class="terminal-body">
+            <span class="terminal-cmd">$ cat caontact.json</span>
+            <span class="terminal-cmd indent">"name": "Omar Matar",</span>
+            <span class="terminal-cmd indent">"role": "Junior Full-Stack Developer",</span>
+            <span class="terminal-cmd indent">"email": "omarmatar828@gmail.com",</span>
+            <span class="terminal-cmd indent">"location": "Amman, Jordan",</span>
+            <span class="terminal-res">"status": "Open to junior roles & internships"</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Form -->
+      <div class="contact-form-col reveal-on-scroll reveal-stagger-2">
+        <div class="form-card glass-card">
+          @if (isSubmitted()) {
+            <div class="success-screen">
+              <div class="success-icon-box">
+                <app-icon name="check" [size]="32"></app-icon>
+              </div>
+              <h3 class="success-title">Message Received!</h3>
+              <p class="success-desc">
+                Thank you for reaching out, <strong>{{ submittedName() }}</strong
+                >. Your message has been logged. I'll get back to you within 24 hours.
+              </p>
+              <button type="button" class="btn btn-primary" (click)="resetForm()">
+                <app-icon name="send" [size]="16"></app-icon>
+                <span>Send Another Message</span>
+              </button>
+            </div>
+          } @else {
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+              <div class="form-header">
+                <h3 class="form-title">Send a Direct Message</h3>
+                <p class="form-subtitle">Fill in your requirements or inquiries below.</p>
+              </div>
+
+              <!-- Name Field -->
+              <div class="form-group">
+                <label class="form-label" for="name">
+                  <span>Your Name</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    placeholder="e.g. Alex Mercer"
+                    [class.invalid]="isFieldInvalid('name')"
+                  />
+                </div>
+                @if (isFieldInvalid('name')) {
+                  <span class="error-msg">Please provide your name.</span>
+                }
+              </div>
+
+              <!-- Email Field -->
+              <div class="form-group">
+                <label class="form-label" for="email">
+                  <span>Email Address</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    placeholder="e.g. alex@company.com"
+                    [class.invalid]="isFieldInvalid('email')"
+                  />
+                </div>
+                @if (isFieldInvalid('email')) {
+                  <span class="error-msg">Please provide a valid email address.</span>
+                }
+              </div>
+
+              <!-- Project / Inquiry Type -->
+              <div class="form-group">
+                <label class="form-label" for="subject">
+                  <span>Inquiry Focus</span>
+                </label>
+                <div class="select-wrap">
+                  <select id="subject" formControlName="subject">
+                    <option value="Junior Full-Stack Role / Internship">
+                      Junior Full-Stack Role &amp; Internship
+                    </option>
+                    <option value="Full-Stack Developer Role">Full-Stack Developer Role</option>
+                    <option value="Modern Web / Angular Modernization">
+                      Modern Web / Angular Modernization
+                    </option>
+                    <option value="Contract Development">Contract Development</option>
+                    <option value="Other Inquiries">General Technical Discussion</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Message Field -->
+              <div class="form-group">
+                <label class="form-label" for="message">
+                  <span>Message</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <textarea
+                    id="message"
+                    formControlName="message"
+                    rows="4"
+                    placeholder="Tell me about your goals, tech stack, timeline, or scope..."
+                    [class.invalid]="isFieldInvalid('message')"
+                  ></textarea>
+                </div>
+                @if (isFieldInvalid('message')) {
+                  <span class="error-msg">Message must be at least 10 characters long.</span>
+                }
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary submit-btn" [disabled]="isSending()">
+                @if (isSending()) {
+                  <span class="spinner"></span>
+                  <span>Transmitting Payload...</span>
+                } @else {
+                  <app-icon name="send" [size]="16"></app-icon>
+                  <span>Transmit Message</span>
+                }
+              </button>
+            </form>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

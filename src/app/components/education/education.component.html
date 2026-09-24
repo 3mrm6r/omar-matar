@@ -1,0 +1,131 @@
+<section id="education" class="education-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>05 // EDUCATION</span>
+      </div>
+      <h2 class="section-title">
+        Academic <span class="gradient-text">Background</span>
+      </h2>
+      <p class="section-subtitle">
+        Strong foundational knowledge in algorithms, data structures, relational database design,
+        and clean software architecture.
+      </p>
+    </div>
+
+    <div class="edu-grid" [class.single-column]="certifications().length === 0">
+      <!-- Left: Formal Education Degree -->
+      <div class="edu-left-col reveal-on-scroll reveal-stagger-1">
+        <h3 class="col-title">
+          <app-icon name="graduation-cap" [size]="20"></app-icon>
+          <span>University Degree</span>
+        </h3>
+
+        @for (edu of educations(); track edu.id) {
+          <div class="degree-card glass-card">
+            <div class="degree-header">
+              <div class="degree-main">
+                <h4 class="degree-title">{{ edu.degree }}</h4>
+                <span class="degree-field">{{ edu.field }}</span>
+                <div class="institution-row">
+                  <span class="institution-name">{{ edu.institution }}</span>
+                  <span class="dot-sep">•</span>
+                  <span class="location-txt">{{ edu.location }}</span>
+                </div>
+              </div>
+
+              <div class="degree-meta">
+                <span class="period-chip">{{ edu.period }}</span>
+                @if (edu.gpa) {
+                  <span class="gpa-chip">GPA: {{ edu.gpa }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Academic Honors -->
+            @if (edu.honors && edu.honors.length) {
+              <div class="honors-box">
+                <span class="honors-label">Academic Honors &amp; Leadership:</span>
+                <ul class="honors-list">
+                  @for (honor of edu.honors; track honor) {
+                    <li class="honor-item">
+                      <app-icon name="award" [size]="14" customClass="honor-icon"></app-icon>
+                      <span>{{ honor }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+
+            <!-- Relevant Coursework -->
+            <div class="coursework-box">
+              <span class="coursework-label">Core Relevant Coursework:</span>
+              <div class="coursework-tags">
+                @for (course of edu.coursework; track course) {
+                  <span class="tech-chip">{{ course }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: Professional Industry Certifications (Renders when certifications are added in portfolio.service.ts) -->
+      @if (certifications().length > 0) {
+        <div class="cert-right-col reveal-on-scroll reveal-stagger-2">
+          <h3 class="col-title">
+            <app-icon name="award" [size]="20"></app-icon>
+            <span>Industry Certifications</span>
+          </h3>
+
+          <div class="certs-list">
+            @for (cert of certifications(); track cert.id) {
+              <div class="cert-card glass-card">
+                <div class="cert-icon-wrap" [style.border-color]="cert.color + '44'">
+                  <app-icon
+                    [name]="cert.badgeIcon"
+                    [size]="22"
+                    [customClass]="'cert-icon'"
+                  ></app-icon>
+                </div>
+
+                <div class="cert-details">
+                  <h4 class="cert-name">{{ cert.title }}</h4>
+                  <div class="cert-issuer-row">
+                    <span class="cert-issuer">{{ cert.issuer }}</span>
+                    <span class="dot-sep">•</span>
+                    <span class="cert-date">{{ cert.issueDate }}</span>
+                  </div>
+
+                  @if (cert.credentialId) {
+                    <div class="cert-id-badge">
+                      <span class="id-label">Credential ID:</span>
+                      <span class="id-val">{{ cert.credentialId }}</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="cert-action">
+                  @if (cert.verifyUrl) {
+                    <a
+                      [href]="cert.verifyUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="verify-btn"
+                      title="Verify Certificate"
+                    >
+                      <app-icon name="external-link" [size]="16"></app-icon>
+                      <span class="verify-txt">Verify</span>
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

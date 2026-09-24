@@ -1,0 +1,119 @@
+<section id="experience" class="experience-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>03 // EXPERIENCE &amp; JOURNEY</span>
+      </div>
+      <h2 class="section-title">
+        Experience &amp; <span class="gradient-text">Journey</span>
+      </h2>
+      <p class="section-subtitle">
+        Academic foundation, hands-on projects, and readiness to contribute clean code to junior
+        full-stack roles and internships.
+      </p>
+    </div>
+
+    <!-- Vertical Timeline -->
+    @if (experiences().length > 0) {
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        @for (exp of experiences(); track exp.id; let i = $index) {
+          <div class="timeline-item reveal-on-scroll" [class]="'reveal-stagger-' + ((i % 4) + 1)">
+            <!-- Timeline Node Marker -->
+            <div class="timeline-marker" [class.current]="exp.current">
+              <div class="marker-dot"></div>
+              @if (exp.current) {
+                <div class="marker-pulse"></div>
+              }
+            </div>
+
+            <!-- Experience Card -->
+            <div class="experience-card glass-card">
+              <div class="card-header">
+                <div class="role-company-box">
+                  <div class="role-row">
+                    <h3 class="role-title">{{ exp.role }}</h3>
+                    @if (exp.current) {
+                      <span class="current-badge">
+                        <span class="current-dot"></span> Current Role
+                      </span>
+                    }
+                  </div>
+
+                  <div class="company-row">
+                    <span class="company-name">{{ exp.company }}</span>
+                    <span class="divider-bullet">•</span>
+                    <span class="location-text">
+                      <app-icon name="map-pin" [size]="13"></app-icon>
+                      {{ exp.location }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="period-pill">
+                  <app-icon name="briefcase" [size]="14"></app-icon>
+                  <span>{{ exp.period }}</span>
+                </div>
+              </div>
+
+              <p class="exp-description">{{ exp.description }}</p>
+
+              <!-- Key Measurable Highlights -->
+              <div class="highlights-box">
+                <div class="highlights-title">Key Architectural Achievements:</div>
+                <ul class="highlights-list">
+                  @for (highlight of exp.highlights; track $index) {
+                    <li class="highlight-item">
+                      <app-icon
+                        name="arrow-right"
+                        [size]="14"
+                        customClass="highlight-arrow"
+                      ></app-icon>
+                      <span>{{ highlight }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+
+              <!-- Tech Tags -->
+              <div class="exp-tech-tags">
+                @for (tech of exp.skills; track tech) {
+                  <span class="tech-chip">{{ tech }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-experience-card glass-card reveal-on-scroll">
+        <div class="empty-icon-box">
+          <app-icon name="briefcase" [size]="28"></app-icon>
+        </div>
+        <div class="empty-content">
+          <div class="empty-badge">
+            <span class="pulse-dot"></span>
+            <span>OPEN FOR OPPORTUNITIES</span>
+          </div>
+          <h3 class="empty-title">Ready for Junior Full-Stack Roles &amp; Internships</h3>
+          <p class="empty-description">
+            Recent CS graduate from University of Jordan with practical hands-on experience building full-stack web applications using <strong>Angular</strong>, <strong>ASP.NET Core</strong>, <strong>C#</strong>, and <strong>SQL</strong>. Eager to contribute clean code, learn from experienced development teams, contribute and grow quickly.
+          </p>
+          <div class="empty-actions">
+            <a class="btn btn-primary" (click)="scroll.scrollToSection('contact')">
+              <app-icon name="send" [size]="16"></app-icon>
+              <span>Get In Touch</span>
+            </a>
+            <a class="btn btn-secondary" (click)="scroll.scrollToSection('projects')">
+              <app-icon name="rocket" [size]="16"></app-icon>
+              <span>View Projects</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

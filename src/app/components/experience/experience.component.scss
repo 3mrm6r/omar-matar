@@ -1,0 +1,360 @@
+.experience-section {
+  position: relative;
+  z-index: 10;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.timeline-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-left: 1.5rem;
+
+  @media (min-width: 640px) {
+    padding-left: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 3rem;
+  }
+}
+
+.timeline-line {
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 5px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent),
+    rgba(var(--accent-rgb), 0.3) 70%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+
+  @media (min-width: 640px) {
+    left: 8px;
+  }
+
+  @media (min-width: 768px) {
+    left: 11px;
+  }
+}
+
+.timeline-item {
+  position: relative;
+}
+
+/* Marker */
+.timeline-marker {
+  position: absolute;
+  top: 24px;
+  left: -1.5rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  @media (min-width: 640px) {
+    left: -2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    left: -3rem;
+  }
+
+  .marker-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0d121c;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: all 0.3s ease;
+  }
+
+  &.current .marker-dot {
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
+  }
+
+  .marker-pulse {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), 0.3);
+    animation: pulseMarker 2s infinite ease-out;
+  }
+}
+
+/* Experience Card */
+.experience-card {
+  padding: 1.75rem;
+  background: rgba(13, 18, 28, 0.7);
+
+  &:hover {
+    .timeline-marker .marker-dot {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.role-company-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.role-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.role-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-highlight);
+  letter-spacing: -0.01em;
+}
+
+.current-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+
+  .current-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 6px #10b981;
+    animation: pulseDot 2s infinite;
+  }
+}
+
+.company-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+
+  .company-name {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .divider-bullet {
+    color: var(--text-muted);
+  }
+
+  .location-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.825rem;
+    color: var(--text-muted);
+  }
+}
+
+.period-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  align-self: flex-start;
+}
+
+.exp-description {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+/* Highlights */
+.highlights-box {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+
+  .highlights-title {
+    font-family: var(--font-mono);
+    font-size: 0.775rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .highlights-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+
+    .highlight-arrow {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+  }
+}
+
+.exp-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Empty State Card */
+.empty-experience-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: rgba(13, 18, 28, 0.7);
+  border: 1px dashed rgba(var(--accent-rgb), 0.35);
+  border-radius: var(--radius-lg);
+  max-width: 760px;
+  margin: 0 auto;
+  gap: 1.5rem;
+
+  @media (max-width: 640px) {
+    padding: 2rem 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .empty-icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 480px) {
+      width: 52px;
+      height: 52px;
+    }
+  }
+
+  .empty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+  }
+
+  .empty-title {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 700;
+    color: var(--text-highlight);
+    margin-bottom: 0.75rem;
+  }
+
+  .empty-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 620px;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    strong {
+      color: var(--text-primary);
+    }
+  }
+
+  .empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      gap: 0.75rem;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@keyframes pulseMarker {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}

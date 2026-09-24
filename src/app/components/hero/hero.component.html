@@ -1,0 +1,182 @@
+<section id="hero" class="hero-section">
+  <div class="container hero-container">
+    <div class="hero-grid">
+      <!-- Left Column: Intro & Call To Action -->
+      <div class="hero-content reveal-on-scroll">
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span class="status-text">Available for Junior Full-Stack Roles</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="greeting">Hi, I'm</span>
+          <span class="developer-name"
+            >{{ profile().name }} <span class="gradient-text">Matar</span></span
+          >
+        </h1>
+
+        <div class="typing-role-wrapper">
+          <span class="code-symbol">&gt; </span>
+          <span class="typed-role">{{ currentTypedText() }}</span>
+          <span class="cursor">_</span>
+        </div>
+
+        <p class="hero-description">
+          {{ profile().bio }}
+        </p>
+
+        <!-- Key Quick Stats Row -->
+        <div class="hero-quick-metrics">
+          <div class="metric-item">
+            <span class="metric-val">{{ profile().yearsOfExperience }}</span>
+            <span class="metric-lbl">CS Graduate</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-val">{{ profile().completedProjects }}</span>
+            <span class="metric-lbl">Projects Built</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-val">{{ profile().uptimeMindset }}</span>
+            <span class="metric-lbl">Reliability</span>
+          </div>
+        </div>
+
+        <!-- Primary CTAs -->
+        <div class="hero-actions">
+          <a class="btn btn-primary" (click)="scroll.scrollToSection('projects')">
+            <app-icon name="rocket" [size]="18"></app-icon>
+            <span>View Projects</span>
+          </a>
+
+          <a class="btn btn-secondary" (click)="scroll.scrollToSection('contact')">
+            <app-icon name="mail" [size]="18"></app-icon>
+            <span>Get In Touch</span>
+          </a>
+
+          <div class="hero-social-links">
+            <a
+              [href]="profile().github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-icon"
+              title="GitHub Profile"
+            >
+              <app-icon name="github" [size]="20"></app-icon>
+            </a>
+
+            <a
+              [href]="profile().linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-icon"
+              title="LinkedIn Profile"
+            >
+              <app-icon name="linkedin" [size]="20"></app-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tech Badges Stream -->
+        <div class="hero-stack-row">
+          <span class="stack-label">Core Tech:</span>
+          <div class="stack-tags">
+            <span class="tech-chip"><app-icon name="code" [size]="13"></app-icon> Angular 22</span>
+            <span class="tech-chip"><app-icon name="cpu" [size]="13"></app-icon> TypeScript</span>
+            <span class="tech-chip"><app-icon name="server" [size]="13"></app-icon> ASP.NET Core</span>
+            <span class="tech-chip"><app-icon name="code" [size]="13"></app-icon> C# &amp; EF Core</span>
+            <span class="tech-chip"><app-icon name="database" [size]="13"></app-icon> SQL Server / MySQL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Developer Code Workstation -->
+      <div class="hero-code-col reveal-on-scroll reveal-stagger-2">
+        <div class="interactive-ide glass-card">
+          <!-- IDE Window Header -->
+          <div class="ide-header">
+            <div class="window-controls">
+              <span class="dot dot-close"></span>
+              <span class="dot dot-minimize"></span>
+              <span class="dot dot-maximize"></span>
+            </div>
+
+            <div class="ide-tabs">
+              @for (tab of codeSnippets(); track tab.filename; let i = $index) {
+                <button
+                  type="button"
+                  class="ide-tab"
+                  [class.active]="activeTabIndex() === i"
+                  (click)="setActiveTab(i)"
+                >
+                  <app-icon
+                    [name]="i === 0 ? 'code' : i === 1 ? 'layout' : 'terminal'"
+                    [size]="13"
+                  ></app-icon>
+                  <span>{{ tab.filename }}</span>
+                </button>
+              }
+            </div>
+
+            <div class="ide-actions">
+              <button
+                type="button"
+                class="ide-action-btn"
+                (click)="copyActiveCode()"
+                [title]="copied() ? 'Copied!' : 'Copy Code'"
+              >
+                <app-icon [name]="copied() ? 'check' : 'copy'" [size]="14"></app-icon>
+                @if (copied()) {
+                  <span class="copy-tooltip">Copied!</span>
+                }
+              </button>
+            </div>
+          </div>
+
+          <!-- IDE Code Body with Line Numbers -->
+          <div class="ide-body">
+            <div class="code-editor-area">
+              <div class="line-numbers">
+                @for (line of getActiveCodeLines(); track $index) {
+                  <span>{{ $index + 1 }}</span>
+                }
+              </div>
+              <pre class="code-content"><code [innerHTML]="highlightedCode()"></code></pre>
+            </div>
+          </div>
+
+          <!-- IDE Interactive Runner Footer -->
+          <div class="ide-footer">
+            <div class="runner-status">
+              <span class="status-indicator-mini"></span>
+              <span>{{ executionStatus() }}</span>
+            </div>
+            <button type="button" class="run-btn" (click)="executeCode()" [disabled]="isRunning()">
+              <app-icon [name]="isRunning() ? 'zap' : 'sparkles'" [size]="14"></app-icon>
+              <span>{{ isRunning() ? 'Executing...' : 'Run Snippet' }}</span>
+            </button>
+          </div>
+
+          @if (terminalOutput()) {
+            <div class="ide-terminal-log">
+              <div class="terminal-prompt">$ node Omar.ts --mode=production</div>
+              <div class="terminal-result">{{ terminalOutput() }}</div>
+            </div>
+          }
+        </div>
+
+        <!-- Ambient Floating Experience Badge -->
+        <div class="floating-float-badge glass-card">
+          <div class="badge-icon-box">
+            <app-icon name="award" [size]="24"></app-icon>
+          </div>
+          <div class="badge-text-box">
+            <span class="badge-title">Full-Stack Ready</span>
+            <span class="badge-desc">Angular + ASP.NET Core</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,185 @@
+<section id="projects" class="projects-section section-padding">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal-on-scroll">
+      <div class="section-badge">
+        <span class="dot"></span>
+        <span>04 // FEATURED PROJECTS</span>
+      </div>
+      <h2 class="section-title">
+        Featured &amp; <span class="gradient-text">Projects</span>
+      </h2>
+      <p class="section-subtitle">
+        A showcase of full-stack web applications and software built with clean architecture,
+        Angular, and ASP.NET Core.
+      </p>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="projects-filter-bar reveal-on-scroll reveal-stagger-1">
+      <button
+        type="button"
+        class="filter-pill"
+        [class.active]="activeCategory() === 'all'"
+        (click)="setCategory('all')"
+      >
+        <span>All Projects</span>
+        <span class="filter-count">{{ projects().length }}</span>
+      </button>
+
+      <button
+        type="button"
+        class="filter-pill"
+        [class.active]="activeCategory() === 'fullstack'"
+        (click)="setCategory('fullstack')"
+      >
+        <span>Full-Stack</span>
+      </button>
+
+      <!-- <button
+        type="button"
+        class="filter-pill"
+        [class.active]="activeCategory() === 'ai'"
+        (click)="setCategory('ai')"
+      >
+        <span>AI &amp; Tooling</span>
+      </button> -->
+
+      <button
+        type="button"
+        class="filter-pill"
+        [class.active]="activeCategory() === 'frontend'"
+        (click)="setCategory('frontend')"
+      >
+        <span>Frontend &amp; Canvas</span>
+      </button>
+
+      <!-- <button
+        type="button"
+        class="filter-pill"
+        [class.active]="activeCategory() === 'cloud'"
+        (click)="setCategory('cloud')"
+      >
+        <span>Cloud &amp; Infra</span>
+      </button> -->
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      @for (project of filteredProjects(); track project.id; let i = $index) {
+        <div
+          class="project-card glass-card reveal-on-scroll"
+          [class]="'reveal-stagger-' + ((i % 3) + 1)"
+          [class.is-featured]="project.featured"
+        >
+          <!-- Project Preview Visual Box -->
+          <div class="project-visual-box">
+            <div class="visual-header">
+              <div class="window-dots"><span></span><span></span><span></span></div>
+              <span class="category-indicator">{{ project.category | uppercase }}</span>
+            </div>
+
+            <!-- Code / System Blueprint Graphic -->
+            <div class="visual-graphic">
+              <div class="graphic-code-snippet">
+                <span class="code-line"
+                  ><span class="token-kw">class</span>
+                  <span class="token-class">{{ project.title.split('//')[0].trim() }}</span>
+                  &#123;</span
+                >
+                <span class="code-line indent"
+                  ><span class="token-var">status</span>:
+                  <span class="token-str">'Completed'</span>;</span
+                >
+                <span class="code-line indent"
+                  ><span class="token-var">throughput</span>:
+                  <span class="token-num">{{ project.metrics[0] || 'Optimized' }}</span
+                  >;</span
+                >
+                <span class="code-line">&#125;</span>
+              </div>
+              <div class="graphic-glow-orb"></div>
+            </div>
+
+            <!-- Quick Action Floating Overlay -->
+            <div class="visual-overlay">
+              <button type="button" class="btn btn-primary btn-sm" (click)="openModal(project)">
+                <app-icon name="sparkles" [size]="14"></app-icon>
+                <span>Architecture Deep Dive</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Project Card Body -->
+          <div class="project-body">
+            <div class="project-title-row">
+              <h3 class="project-title" (click)="openModal(project)">{{ project.title }}</h3>
+
+              <div class="project-external-links">
+                @if (project.githubUrl) {
+                  <a
+                    [href]="project.githubUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-icon"
+                    title="View Source"
+                  >
+                    <app-icon name="github" [size]="17"></app-icon>
+                  </a>
+                }
+                @if (project.demoUrl) {
+                  <a
+                    [href]="project.demoUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-icon"
+                    title="Live Preview"
+                  >
+                    <app-icon name="external-link" [size]="17"></app-icon>
+                  </a>
+                }
+              </div>
+            </div>
+
+            <p class="project-tagline">{{ project.tagline }}</p>
+
+            <!-- Metrics Row -->
+            @if (project.metrics && project.metrics.length) {
+              <div class="card-metrics-row">
+                @for (metric of project.metrics; track metric) {
+                  <span class="metric-tag">
+                    <app-icon name="zap" [size]="12"></app-icon>
+                    {{ metric }}
+                  </span>
+                }
+              </div>
+            }
+
+            <!-- Tech Tags -->
+            <div class="project-tags">
+              @for (tag of project.tags.slice(0, 5); track tag) {
+                <span class="tech-chip">{{ tag }}</span>
+              }
+              @if (project.tags.length > 5) {
+                <span class="tech-chip more-tag">+{{ project.tags.length - 5 }}</span>
+              }
+            </div>
+          </div>
+
+          <!-- Project Footer -->
+          <div class="project-footer">
+            <button type="button" class="learn-more-btn" (click)="openModal(project)">
+              <span>View Full Architecture</span>
+              <app-icon name="arrow-right" [size]="14"></app-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  @if (selectedProject()) {
+    <app-project-modal [project]="selectedProject()" (close)="closeModal()"> </app-project-modal>
+  }
+</section>
