@@ -2,9 +2,8 @@
 
 A dark-themed developer portfolio built with **Angular 22 (Standalone Components, Signals)** and **SCSS**. It has a cyber developer look, an animated code background, an interactive hero code editor, scroll-reveal animations and a responsive layout.
 
-🔗 **Live demo:** https://YOUR-LIVE-URL
+🔗 **Live demo:** https://omar-matar.pages.dev
 
-![Portfolio preview](docs/preview.png)
 
 ---
 
